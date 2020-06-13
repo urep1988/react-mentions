@@ -826,6 +826,7 @@ class MentionsInput extends React.Component {
           querySequenceStart + match[1].length,
           plainTextValue
         )
+        this.props.onQueryChange(match[2])
       }
     })
   }
