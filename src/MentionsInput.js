@@ -809,7 +809,7 @@ class MentionsInput extends React.Component {
 
     // Check if suggestions have to be shown:
     // Match the trigger patterns of all Mention children on the extracted substring
-    React.Children.forEach(children, (child, childIndex) => {
+    React.Children.forEach(children, async (child, childIndex) => {
       if (!child) {
         return
       }
@@ -819,6 +819,8 @@ class MentionsInput extends React.Component {
       if (match) {
         const querySequenceStart =
           substringStartIndex + substring.indexOf(match[1], match.index)
+        
+        await this.props.onQueryChange(match[2])
         this.queryData(
           match[2],
           childIndex,
@@ -826,7 +828,6 @@ class MentionsInput extends React.Component {
           querySequenceStart + match[1].length,
           plainTextValue
         )
-        this.props.onQueryChange(match[2])
       }
     })
   }

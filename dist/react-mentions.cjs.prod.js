@@ -8,7 +8,7 @@ Object.defineProperty(exports, "__esModule", {
   value: !0
 });
 
-var _toConsumableArray = _interopDefault(require("@babel/runtime/helpers/toConsumableArray")), _extends = _interopDefault(require("@babel/runtime/helpers/extends")), _classCallCheck = _interopDefault(require("@babel/runtime/helpers/classCallCheck")), _createClass = _interopDefault(require("@babel/runtime/helpers/createClass")), _assertThisInitialized = _interopDefault(require("@babel/runtime/helpers/assertThisInitialized")), _inherits = _interopDefault(require("@babel/runtime/helpers/inherits")), _possibleConstructorReturn = _interopDefault(require("@babel/runtime/helpers/possibleConstructorReturn")), _getPrototypeOf = _interopDefault(require("@babel/runtime/helpers/getPrototypeOf")), _defineProperty = _interopDefault(require("@babel/runtime/helpers/defineProperty")), React = require("react"), React__default = _interopDefault(React), invariant = _interopDefault(require("invariant")), _slicedToArray = _interopDefault(require("@babel/runtime/helpers/slicedToArray")), PropTypes = _interopDefault(require("prop-types")), substyle = require("substyle"), substyle__default = _interopDefault(substyle), ReactDOM = _interopDefault(require("react-dom")), escapeRegex = function(str) {
+var _regeneratorRuntime = _interopDefault(require("@babel/runtime/regenerator")), _asyncToGenerator = _interopDefault(require("@babel/runtime/helpers/asyncToGenerator")), _toConsumableArray = _interopDefault(require("@babel/runtime/helpers/toConsumableArray")), _extends = _interopDefault(require("@babel/runtime/helpers/extends")), _classCallCheck = _interopDefault(require("@babel/runtime/helpers/classCallCheck")), _createClass = _interopDefault(require("@babel/runtime/helpers/createClass")), _assertThisInitialized = _interopDefault(require("@babel/runtime/helpers/assertThisInitialized")), _inherits = _interopDefault(require("@babel/runtime/helpers/inherits")), _possibleConstructorReturn = _interopDefault(require("@babel/runtime/helpers/possibleConstructorReturn")), _getPrototypeOf = _interopDefault(require("@babel/runtime/helpers/getPrototypeOf")), _defineProperty = _interopDefault(require("@babel/runtime/helpers/defineProperty")), React = require("react"), React__default = _interopDefault(React), invariant = _interopDefault(require("invariant")), _slicedToArray = _interopDefault(require("@babel/runtime/helpers/slicedToArray")), PropTypes = _interopDefault(require("prop-types")), substyle = require("substyle"), substyle__default = _interopDefault(substyle), ReactDOM = _interopDefault(require("react-dom")), escapeRegex = function(str) {
   return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }, PLACEHOLDERS = {
   id: "__id__",
@@ -1140,16 +1140,39 @@ var makeTriggerRegex = function(trigger) {
       var value = _this.props.value || "", children = _this.props.children, config = readConfigFromChildren(children), positionInValue = mapPlainTextIndex(value, config, caretPosition, "NULL");
       if (null !== positionInValue) {
         var substringStartIndex = getEndOfLastMention(value.substring(0, positionInValue), config), substring = plainTextValue.substring(substringStartIndex, caretPosition);
-        React__default.Children.forEach(children, function(child, childIndex) {
-          if (child) {
-            var regex = makeTriggerRegex(child.props.trigger, _this.props), match = substring.match(regex);
-            if (match) {
-              var querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index);
-              _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue), 
-              _this.props.onQueryChange(match[2]);
-            }
-          }
-        });
+        React__default.Children.forEach(children, function() {
+          var _ref2 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee(child, childIndex) {
+            var regex, match, querySequenceStart;
+            return _regeneratorRuntime.wrap(function(_context) {
+              for (;;) switch (_context.prev = _context.next) {
+               case 0:
+                if (child) {
+                  _context.next = 2;
+                  break;
+                }
+                return _context.abrupt("return");
+
+               case 2:
+                if (regex = makeTriggerRegex(child.props.trigger, _this.props), !(match = substring.match(regex))) {
+                  _context.next = 9;
+                  break;
+                }
+                return querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index), 
+                _context.next = 8, _this.props.onQueryChange(match[2]);
+
+               case 8:
+                _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
+
+               case 9:
+               case "end":
+                return _context.stop();
+              }
+            }, _callee);
+          }));
+          return function(_x, _x2) {
+            return _ref2.apply(this, arguments);
+          };
+        }());
       }
     }), _defineProperty(_assertThisInitialized(_this), "clearSuggestions", function() {
       _this._queryId++, _this.suggestions = {}, _this.setState({
@@ -1177,8 +1200,8 @@ var makeTriggerRegex = function(trigger) {
           focusIndex: focusIndex >= suggestionsCount ? Math.max(suggestionsCount - 1, 0) : focusIndex
         });
       }
-    }), _defineProperty(_assertThisInitialized(_this), "addMention", function(_ref2, _ref3) {
-      var id = _ref2.id, display = _ref2.display, childIndex = _ref3.childIndex, querySequenceStart = _ref3.querySequenceStart, querySequenceEnd = _ref3.querySequenceEnd, plainTextValue = _ref3.plainTextValue, value = _this.props.value || "", config = readConfigFromChildren(_this.props.children), _mentionsChild$props = React.Children.toArray(_this.props.children)[childIndex].props, markup = _mentionsChild$props.markup, displayTransform = _mentionsChild$props.displayTransform, appendSpaceOnAdd = _mentionsChild$props.appendSpaceOnAdd, onAdd = _mentionsChild$props.onAdd, start = mapPlainTextIndex(value, config, querySequenceStart, "START"), end = start + querySequenceEnd - querySequenceStart, insert = makeMentionsMarkup(markup, id, display);
+    }), _defineProperty(_assertThisInitialized(_this), "addMention", function(_ref3, _ref4) {
+      var id = _ref3.id, display = _ref3.display, childIndex = _ref4.childIndex, querySequenceStart = _ref4.querySequenceStart, querySequenceEnd = _ref4.querySequenceEnd, plainTextValue = _ref4.plainTextValue, value = _this.props.value || "", config = readConfigFromChildren(_this.props.children), _mentionsChild$props = React.Children.toArray(_this.props.children)[childIndex].props, markup = _mentionsChild$props.markup, displayTransform = _mentionsChild$props.displayTransform, appendSpaceOnAdd = _mentionsChild$props.appendSpaceOnAdd, onAdd = _mentionsChild$props.onAdd, start = mapPlainTextIndex(value, config, querySequenceStart, "START"), end = start + querySequenceEnd - querySequenceStart, insert = makeMentionsMarkup(markup, id, display);
       appendSpaceOnAdd && (insert += " ");
       var newValue = spliceString(value, start, end, insert);
       _this.inputRef.focus();
@@ -1336,8 +1359,8 @@ var getComputedStyleLengthProp = function(forElement, propertyName) {
       marginLeft: -3
     } : null)
   }
-}, function(_ref4) {
-  var singleLine = _ref4.singleLine;
+}, function(_ref5) {
+  var singleLine = _ref5.singleLine;
   return {
     "&singleLine": singleLine,
     "&multiLine": !singleLine
