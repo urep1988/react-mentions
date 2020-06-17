@@ -2166,4 +2166,4 @@ Mention.defaultProps = {
   appendSpaceOnAdd: false
 };
 
-export { Mention, MentionsInput$1 as MentionsInput };
+export { Mention, MentionsInput$1 as MentionsInput, applyChangeToValue, countSuggestions, escapeRegex, findStartOfMentionInPlainText, getEndOfLastMention, getMentions, getPlainText, getSubstringIndex, isNumber, isObjectEqual, keys, makeMentionsMarkup, mapPlainTextIndex, omit, readConfigFromChildren, spliceString };

@@ -1396,4 +1396,10 @@ Mention.propTypes = {
   renderSuggestion: null,
   isLoading: !1,
   appendSpaceOnAdd: !1
-}, exports.Mention = Mention, exports.MentionsInput = MentionsInput$1;
+}, exports.Mention = Mention, exports.MentionsInput = MentionsInput$1, exports.applyChangeToValue = applyChangeToValue, 
+exports.countSuggestions = countSuggestions, exports.escapeRegex = escapeRegex, 
+exports.findStartOfMentionInPlainText = findStartOfMentionInPlainText, exports.getEndOfLastMention = getEndOfLastMention, 
+exports.getMentions = getMentions, exports.getPlainText = getPlainText, exports.getSubstringIndex = getSubstringIndex, 
+exports.isNumber = isNumber, exports.isObjectEqual = isObjectEqual, exports.keys = keys, 
+exports.makeMentionsMarkup = makeMentionsMarkup, exports.mapPlainTextIndex = mapPlainTextIndex, 
+exports.omit = omit, exports.readConfigFromChildren = readConfigFromChildren, exports.spliceString = spliceString;
