@@ -2189,6 +2189,7 @@ exports.isObjectEqual = isObjectEqual;
 exports.keys = keys;
 exports.makeMentionsMarkup = makeMentionsMarkup;
 exports.mapPlainTextIndex = mapPlainTextIndex;
+exports.markupToRegex = markupToRegex;
 exports.omit = omit;
 exports.readConfigFromChildren = readConfigFromChildren;
 exports.spliceString = spliceString;

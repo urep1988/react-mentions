@@ -1402,4 +1402,5 @@ exports.findStartOfMentionInPlainText = findStartOfMentionInPlainText, exports.g
 exports.getMentions = getMentions, exports.getPlainText = getPlainText, exports.getSubstringIndex = getSubstringIndex, 
 exports.isNumber = isNumber, exports.isObjectEqual = isObjectEqual, exports.keys = keys, 
 exports.makeMentionsMarkup = makeMentionsMarkup, exports.mapPlainTextIndex = mapPlainTextIndex, 
-exports.omit = omit, exports.readConfigFromChildren = readConfigFromChildren, exports.spliceString = spliceString;
+exports.markupToRegex = markupToRegex, exports.omit = omit, exports.readConfigFromChildren = readConfigFromChildren, 
+exports.spliceString = spliceString;
