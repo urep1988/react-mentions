@@ -17,4 +17,5 @@ export {
   isNumber,
   keys,
   omit,
+  markupToRegex,
 } from './utils'
