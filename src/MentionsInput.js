@@ -773,7 +773,7 @@ class MentionsInput extends React.Component {
     }
   }
 
-  updateMentionsQueries = (plainTextValue, caretPosition) => {
+  updateMentionsQueries = async (plainTextValue, caretPosition) => {
     // Invalidate previous queries. Async results for previous queries will be neglected.
     this._queryId++
     this.suggestions = {}
@@ -809,7 +809,8 @@ class MentionsInput extends React.Component {
 
     // Check if suggestions have to be shown:
     // Match the trigger patterns of all Mention children on the extracted substring
-    React.Children.forEach(children, async (child, childIndex) => {
+
+    const promises = React.Children.map(children, async (child, childIndex) => {
       if (!child) {
         return
       }
@@ -830,6 +831,7 @@ class MentionsInput extends React.Component {
         )
       }
     })
+    await Promise.all(promises);
   }
 
   clearSuggestions = () => {

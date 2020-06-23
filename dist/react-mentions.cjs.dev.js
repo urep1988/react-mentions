@@ -1703,72 +1703,96 @@ var MentionsInput = /*#__PURE__*/function (_React$Component) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "updateMentionsQueries", function (plainTextValue, caretPosition) {
-      // Invalidate previous queries. Async results for previous queries will be neglected.
-      _this._queryId++;
-      _this.suggestions = {};
+    _defineProperty(_assertThisInitialized(_this), "updateMentionsQueries", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee2(plainTextValue, caretPosition) {
+        var value, children, config, positionInValue, substringStartIndex, substring, promises;
+        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                // Invalidate previous queries. Async results for previous queries will be neglected.
+                _this._queryId++;
+                _this.suggestions = {};
 
-      _this.setState({
-        suggestions: {}
-      });
+                _this.setState({
+                  suggestions: {}
+                });
 
-      var value = _this.props.value || '';
-      var children = _this.props.children;
-      var config = readConfigFromChildren(children);
-      var positionInValue = mapPlainTextIndex(value, config, caretPosition, 'NULL'); // If caret is inside of mention, do not query
+                value = _this.props.value || '';
+                children = _this.props.children;
+                config = readConfigFromChildren(children);
+                positionInValue = mapPlainTextIndex(value, config, caretPosition, 'NULL'); // If caret is inside of mention, do not query
 
-      if (positionInValue === null) {
-        return;
-      } // Extract substring in between the end of the previous mention and the caret
+                if (!(positionInValue === null)) {
+                  _context2.next = 9;
+                  break;
+                }
 
+                return _context2.abrupt("return");
 
-      var substringStartIndex = getEndOfLastMention(value.substring(0, positionInValue), config);
-      var substring = plainTextValue.substring(substringStartIndex, caretPosition); // Check if suggestions have to be shown:
-      // Match the trigger patterns of all Mention children on the extracted substring
+              case 9:
+                // Extract substring in between the end of the previous mention and the caret
+                substringStartIndex = getEndOfLastMention(value.substring(0, positionInValue), config);
+                substring = plainTextValue.substring(substringStartIndex, caretPosition); // Check if suggestions have to be shown:
+                // Match the trigger patterns of all Mention children on the extracted substring
 
-      React__default.Children.forEach(children, /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(child, childIndex) {
-          var regex, match, querySequenceStart;
-          return _regeneratorRuntime.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  if (child) {
-                    _context.next = 2;
-                    break;
-                  }
+                promises = React__default.Children.map(children, /*#__PURE__*/function () {
+                  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(child, childIndex) {
+                    var regex, match, querySequenceStart;
+                    return _regeneratorRuntime.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            if (child) {
+                              _context.next = 2;
+                              break;
+                            }
 
-                  return _context.abrupt("return");
+                            return _context.abrupt("return");
 
-                case 2:
-                  regex = makeTriggerRegex(child.props.trigger, _this.props);
-                  match = substring.match(regex);
+                          case 2:
+                            regex = makeTriggerRegex(child.props.trigger, _this.props);
+                            match = substring.match(regex);
 
-                  if (!match) {
-                    _context.next = 9;
-                    break;
-                  }
+                            if (!match) {
+                              _context.next = 9;
+                              break;
+                            }
 
-                  querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index);
-                  _context.next = 8;
-                  return _this.props.onQueryChange(match[2]);
+                            querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index);
+                            _context.next = 8;
+                            return _this.props.onQueryChange(match[2]);
 
-                case 8:
-                  _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
+                          case 8:
+                            _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
 
-                case 9:
-                case "end":
-                  return _context.stop();
-              }
+                          case 9:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x3, _x4) {
+                    return _ref3.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 14;
+                return Promise.all(promises);
+
+              case 14:
+              case "end":
+                return _context2.stop();
             }
-          }, _callee);
-        }));
+          }
+        }, _callee2);
+      }));
 
-        return function (_x, _x2) {
-          return _ref2.apply(this, arguments);
-        };
-      }());
-    });
+      return function (_x, _x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
 
     _defineProperty(_assertThisInitialized(_this), "clearSuggestions", function () {
       // Invalidate previous queries. Async results for previous queries will be neglected.
@@ -1818,13 +1842,13 @@ var MentionsInput = /*#__PURE__*/function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "addMention", function (_ref3, _ref4) {
-      var id = _ref3.id,
-          display = _ref3.display;
-      var childIndex = _ref4.childIndex,
-          querySequenceStart = _ref4.querySequenceStart,
-          querySequenceEnd = _ref4.querySequenceEnd,
-          plainTextValue = _ref4.plainTextValue;
+    _defineProperty(_assertThisInitialized(_this), "addMention", function (_ref4, _ref5) {
+      var id = _ref4.id,
+          display = _ref4.display;
+      var childIndex = _ref5.childIndex,
+          querySequenceStart = _ref5.querySequenceStart,
+          querySequenceEnd = _ref5.querySequenceEnd,
+          plainTextValue = _ref5.plainTextValue;
       // Insert mention in the marked up value at the correct position
       var value = _this.props.value || '';
       var config = readConfigFromChildren(_this.props.children);
@@ -2115,8 +2139,8 @@ var styled$3 = substyle.defaultStyle({
       marginLeft: -3
     } : null)
   }
-}, function (_ref5) {
-  var singleLine = _ref5.singleLine;
+}, function (_ref6) {
+  var singleLine = _ref6.singleLine;
   return {
     '&singleLine': singleLine,
     '&multiLine': !singleLine

@@ -1133,48 +1133,67 @@ var makeTriggerRegex = function(trigger) {
           range.select();
         }
       }
-    }), _defineProperty(_assertThisInitialized(_this), "updateMentionsQueries", function(plainTextValue, caretPosition) {
-      _this._queryId++, _this.suggestions = {}, _this.setState({
-        suggestions: {}
-      });
-      var value = _this.props.value || "", children = _this.props.children, config = readConfigFromChildren(children), positionInValue = mapPlainTextIndex(value, config, caretPosition, "NULL");
-      if (null !== positionInValue) {
-        var substringStartIndex = getEndOfLastMention(value.substring(0, positionInValue), config), substring = plainTextValue.substring(substringStartIndex, caretPosition);
-        React__default.Children.forEach(children, function() {
-          var _ref2 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee(child, childIndex) {
-            var regex, match, querySequenceStart;
-            return _regeneratorRuntime.wrap(function(_context) {
-              for (;;) switch (_context.prev = _context.next) {
-               case 0:
-                if (child) {
-                  _context.next = 2;
-                  break;
-                }
-                return _context.abrupt("return");
+    }), _defineProperty(_assertThisInitialized(_this), "updateMentionsQueries", function() {
+      var _ref2 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee2(plainTextValue, caretPosition) {
+        var value, children, config, positionInValue, substringStartIndex, substring, promises;
+        return _regeneratorRuntime.wrap(function(_context2) {
+          for (;;) switch (_context2.prev = _context2.next) {
+           case 0:
+            if (_this._queryId++, _this.suggestions = {}, _this.setState({
+              suggestions: {}
+            }), value = _this.props.value || "", children = _this.props.children, config = readConfigFromChildren(children), 
+            null !== (positionInValue = mapPlainTextIndex(value, config, caretPosition, "NULL"))) {
+              _context2.next = 9;
+              break;
+            }
+            return _context2.abrupt("return");
 
-               case 2:
-                if (regex = makeTriggerRegex(child.props.trigger, _this.props), !(match = substring.match(regex))) {
-                  _context.next = 9;
-                  break;
-                }
-                return querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index), 
-                _context.next = 8, _this.props.onQueryChange(match[2]);
+           case 9:
+            return substringStartIndex = getEndOfLastMention(value.substring(0, positionInValue), config), 
+            substring = plainTextValue.substring(substringStartIndex, caretPosition), promises = React__default.Children.map(children, function() {
+              var _ref3 = _asyncToGenerator(_regeneratorRuntime.mark(function _callee(child, childIndex) {
+                var regex, match, querySequenceStart;
+                return _regeneratorRuntime.wrap(function(_context) {
+                  for (;;) switch (_context.prev = _context.next) {
+                   case 0:
+                    if (child) {
+                      _context.next = 2;
+                      break;
+                    }
+                    return _context.abrupt("return");
 
-               case 8:
-                _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
+                   case 2:
+                    if (regex = makeTriggerRegex(child.props.trigger, _this.props), !(match = substring.match(regex))) {
+                      _context.next = 9;
+                      break;
+                    }
+                    return querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index), 
+                    _context.next = 8, _this.props.onQueryChange(match[2]);
 
-               case 9:
-               case "end":
-                return _context.stop();
-              }
-            }, _callee);
-          }));
-          return function(_x, _x2) {
-            return _ref2.apply(this, arguments);
-          };
-        }());
-      }
-    }), _defineProperty(_assertThisInitialized(_this), "clearSuggestions", function() {
+                   case 8:
+                    _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
+
+                   case 9:
+                   case "end":
+                    return _context.stop();
+                  }
+                }, _callee);
+              }));
+              return function(_x3, _x4) {
+                return _ref3.apply(this, arguments);
+              };
+            }()), _context2.next = 14, Promise.all(promises);
+
+           case 14:
+           case "end":
+            return _context2.stop();
+          }
+        }, _callee2);
+      }));
+      return function(_x, _x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }()), _defineProperty(_assertThisInitialized(_this), "clearSuggestions", function() {
       _this._queryId++, _this.suggestions = {}, _this.setState({
         suggestions: {},
         focusIndex: 0
@@ -1200,8 +1219,8 @@ var makeTriggerRegex = function(trigger) {
           focusIndex: focusIndex >= suggestionsCount ? Math.max(suggestionsCount - 1, 0) : focusIndex
         });
       }
-    }), _defineProperty(_assertThisInitialized(_this), "addMention", function(_ref3, _ref4) {
-      var id = _ref3.id, display = _ref3.display, childIndex = _ref4.childIndex, querySequenceStart = _ref4.querySequenceStart, querySequenceEnd = _ref4.querySequenceEnd, plainTextValue = _ref4.plainTextValue, value = _this.props.value || "", config = readConfigFromChildren(_this.props.children), _mentionsChild$props = React.Children.toArray(_this.props.children)[childIndex].props, markup = _mentionsChild$props.markup, displayTransform = _mentionsChild$props.displayTransform, appendSpaceOnAdd = _mentionsChild$props.appendSpaceOnAdd, onAdd = _mentionsChild$props.onAdd, start = mapPlainTextIndex(value, config, querySequenceStart, "START"), end = start + querySequenceEnd - querySequenceStart, insert = makeMentionsMarkup(markup, id, display);
+    }), _defineProperty(_assertThisInitialized(_this), "addMention", function(_ref4, _ref5) {
+      var id = _ref4.id, display = _ref4.display, childIndex = _ref5.childIndex, querySequenceStart = _ref5.querySequenceStart, querySequenceEnd = _ref5.querySequenceEnd, plainTextValue = _ref5.plainTextValue, value = _this.props.value || "", config = readConfigFromChildren(_this.props.children), _mentionsChild$props = React.Children.toArray(_this.props.children)[childIndex].props, markup = _mentionsChild$props.markup, displayTransform = _mentionsChild$props.displayTransform, appendSpaceOnAdd = _mentionsChild$props.appendSpaceOnAdd, onAdd = _mentionsChild$props.onAdd, start = mapPlainTextIndex(value, config, querySequenceStart, "START"), end = start + querySequenceEnd - querySequenceStart, insert = makeMentionsMarkup(markup, id, display);
       appendSpaceOnAdd && (insert += " ");
       var newValue = spliceString(value, start, end, insert);
       _this.inputRef.focus();
@@ -1359,8 +1378,8 @@ var getComputedStyleLengthProp = function(forElement, propertyName) {
       marginLeft: -3
     } : null)
   }
-}, function(_ref5) {
-  var singleLine = _ref5.singleLine;
+}, function(_ref6) {
+  var singleLine = _ref6.singleLine;
   return {
     "&singleLine": singleLine,
     "&multiLine": !singleLine
