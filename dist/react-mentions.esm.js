@@ -1747,18 +1747,17 @@ var MentionsInput = /*#__PURE__*/function (_React$Component) {
                             match = substring.match(regex);
 
                             if (!match) {
-                              _context.next = 9;
+                              _context.next = 8;
                               break;
                             }
 
                             querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index);
                             _context.next = 8;
-                            return _this.props.onQueryChange(match[2]);
+                            return _this.props.onQueryChange(match[2], function () {
+                              return _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
+                            });
 
                           case 8:
-                            _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
-
-                          case 9:
                           case "end":
                             return _context.stop();
                         }

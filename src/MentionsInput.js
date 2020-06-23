@@ -821,17 +821,18 @@ class MentionsInput extends React.Component {
         const querySequenceStart =
           substringStartIndex + substring.indexOf(match[1], match.index)
         
-        await this.props.onQueryChange(match[2])
-        this.queryData(
-          match[2],
-          childIndex,
-          querySequenceStart,
-          querySequenceStart + match[1].length,
-          plainTextValue
-        )
+        await this.props.onQueryChange(match[2], () => (
+          this.queryData(
+            match[2],
+            childIndex,
+            querySequenceStart,
+            querySequenceStart + match[1].length,
+            plainTextValue
+          )
+        ))
       }
     })
-    await Promise.all(promises);
+    await Promise.all(promises)
   }
 
   clearSuggestions = () => {

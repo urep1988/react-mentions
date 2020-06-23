@@ -1164,16 +1164,15 @@ var makeTriggerRegex = function(trigger) {
 
                    case 2:
                     if (regex = makeTriggerRegex(child.props.trigger, _this.props), !(match = substring.match(regex))) {
-                      _context.next = 9;
+                      _context.next = 8;
                       break;
                     }
                     return querySequenceStart = substringStartIndex + substring.indexOf(match[1], match.index), 
-                    _context.next = 8, _this.props.onQueryChange(match[2]);
+                    _context.next = 8, _this.props.onQueryChange(match[2], function() {
+                      return _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
+                    });
 
                    case 8:
-                    _this.queryData(match[2], childIndex, querySequenceStart, querySequenceStart + match[1].length, plainTextValue);
-
-                   case 9:
                    case "end":
                     return _context.stop();
                   }
